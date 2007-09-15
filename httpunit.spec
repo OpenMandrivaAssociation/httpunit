@@ -32,7 +32,7 @@
 
 Name:           httpunit
 Version:        1.6.2
-Release:        %mkrel 1.1.1
+Release:        %mkrel 1.1.2
 Epoch:          0
 Summary:        Automated web site testing toolkit
 License:        MIT
@@ -60,8 +60,6 @@ Requires:       nekohtml
 Requires:       rhino
 Group:          Development/Java
 %if %{gcj_support}
-Requires(post): java-gcj-compat
-Requires(postun): java-gcj-compat
 BuildRequires:  java-gcj-compat-devel
 %else
 BuildArch:      noarch
