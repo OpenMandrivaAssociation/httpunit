@@ -32,7 +32,7 @@
 
 Name:           httpunit
 Version:        1.6.2
-Release:        %mkrel 1.1.2
+Release:        %mkrel 1.1.3
 Epoch:          0
 Summary:        Automated web site testing toolkit
 License:        MIT
@@ -41,7 +41,7 @@ Patch0:         %{name}.build.patch
 Patch1:         %{name}-JavaScript-NotAFunctionException.patch
 Patch2:         %{name}-servlettest.patch
 URL:            http://httpunit.sourceforge.net/
-BuildRequires:  jpackage-utils >= 0:1.6
+BuildRequires:  java-rpmbuild >= 0:1.6
 BuildRequires:  ant >= 0:1.6
 BuildRequires:  nekohtml
 BuildRequires:  jtidy
