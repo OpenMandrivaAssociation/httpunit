@@ -28,15 +28,15 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-%define gcj_support 1
+%define gcj_support 0
 
 Name:           httpunit
-Version:        1.6.2
-Release:        %mkrel 1.1.3
+Version:        1.7
+Release:        %mkrel 0.0.1
 Epoch:          0
 Summary:        Automated web site testing toolkit
 License:        MIT
-Source0:        http://download.sourceforge.net/httpunit/httpunit-1.6.2.zip
+Source0:        http://download.sourceforge.net/httpunit/httpunit-%{version}.zip
 Patch0:         %{name}.build.patch
 Patch1:         %{name}-JavaScript-NotAFunctionException.patch
 Patch2:         %{name}-servlettest.patch
@@ -155,9 +155,7 @@ cp -p lib/%{name}-test.jar \
 cp -p lib/%{name}-examples.jar \
   $RPM_BUILD_ROOT%{_datadir}/%{name}/%{name}-examples-%{version}.jar
 
-%if %{gcj_support}
-%{_bindir}/aot-compile-rpm
-%endif
+%{gcj_compile}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -173,10 +171,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(0644,root,root,0755)
 %{_javadir}/*
-%if %{gcj_support}
-%dir %{_libdir}/gcj/%{name}
-%attr(-,root,root) %{_libdir}/gcj/%{name}/*
-%endif
+%{gcj_files}
 
 %files javadoc
 %defattr(0644,root,root,0755)
