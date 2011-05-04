@@ -32,7 +32,7 @@
 
 Name:           httpunit
 Version:        1.7
-Release:        %mkrel 0.0.4
+Release:        %mkrel 0.0.5
 Epoch:          0
 Summary:        Automated web site testing toolkit
 License:        MIT
