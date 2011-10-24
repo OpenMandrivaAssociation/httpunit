@@ -28,12 +28,9 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-%define gcj_support 0
-
 Name:           httpunit
 Version:        1.7
-Release:        %mkrel 0.0.5
-Epoch:          0
+Release:        3
 Summary:        Automated web site testing toolkit
 License:        MIT
 Source0:        http://download.sourceforge.net/httpunit/httpunit-%{version}.zip
@@ -41,31 +38,27 @@ Patch0:         %{name}.build.patch
 Patch1:         %{name}-JavaScript-NotAFunctionException.patch
 Patch2:         %{name}-servlettest.patch
 URL:            http://httpunit.sourceforge.net/
-BuildRequires:  java-rpmbuild >= 0:1.6
+BuildRequires:  jpackage-utils >= 0:1.6
 BuildRequires:  ant >= 0:1.6
 BuildRequires:  nekohtml
 BuildRequires:  jtidy
 BuildRequires:  junit >= 0:3.8
-BuildRequires:  servlet24
+BuildRequires:  servlet
 BuildRequires:  javamail >= 0:1.3
-BuildRequires:  jaf >= 0:1.0.2
 BuildRequires:  rhino
 BuildRequires:  %{__unzip}
+BuildRequires:  java-devel >= 0:1.6.0
 Requires:       junit >= 0:3.8
 Requires:       jpackage-utils
-Requires:       servlet24
+Requires:       servlet
 Requires:       jaxp_parser_impl
 # As of 1.5, requires either nekohtml or jtidy, and prefers nekohtml.
 Requires:       nekohtml
 Requires:       rhino
 Group:          Development/Java
-%if %{gcj_support}
-BuildRequires:  java-gcj-compat-devel
-%else
 BuildArch:      noarch
-BuildRequires:  java-devel
-%endif
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Obsoletes:      %{name}-demo < %{version}
 
 %description
 HttpUnit emulates the relevant portions of browser behavior, including form
@@ -89,41 +82,34 @@ Requires:       %{name}-javadoc
 %description    doc
 Documentation for %{name}
 
-%package        demo
-Summary:        Demo for %{name}
-Group:          Development/Java
-Requires:       %{name} = %{epoch}:%{version}-%{release}
-
-%description    demo
-Demonstrations and samples for %{name}.
-
-
 %prep
 %setup -q
 # to create the test and examples jar
-%patch0 -p0
+#%patch0 -p0
 # patch to work with rhino 1.5
-%patch1 -b .sav
+%patch1 -p0 -b .sav
 # add META-INF
-%patch2
+%patch2 -p0
 #%{__unzip} -qd META-INF lib/httpunit.jar "*.dtd" # 1.6 dist zip is borked
 # remove all binary libs and javadocs
+
+sed -i -e 's|setCharEncoding( org.w3c.tidy.Configuration.UTF8 )|setInputEncoding("UTF-8")|g' src/com/meterware/httpunit/parsing/JTidyHTMLParser.java
 find . -name "*.jar" -exec rm -f {} \;
 rm -rf doc/api
 ln -s \
   %{_javadir}/junit.jar \
   %{_javadir}/jtidy.jar \
   %{_javadir}/nekohtml.jar \
-  %{_javadir}/servletapi5.jar \
+  %{_javadir}/servlet.jar \
   %{_javadir}/js.jar \
   %{_javadir}/xerces-j2.jar \
   jars
 
 
 %build
-export CLASSPATH=$(build-classpath jaf javamail)
-%{ant} -Dbuild.compiler=modern -Dbuild.sysclasspath=last \
-  jar javadocs test servlettest testjar examplesjar
+export CLASSPATH=$(build-classpath javamail)
+ant -Dbuild.compiler=modern -Dbuild.sysclasspath=last \
+  jar javadocs test servlettest 
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -147,40 +133,18 @@ pushd doc
 ln -sf %{_javadocdir}/%{name}-%{version} api
 popd
 
-# Demo
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/%{name}
-cp -p examples/* $RPM_BUILD_ROOT%{_datadir}/%{name}
-cp -p lib/%{name}-test.jar \
-  $RPM_BUILD_ROOT%{_datadir}/%{name}/%{name}-test-%{version}.jar
-cp -p lib/%{name}-examples.jar \
-  $RPM_BUILD_ROOT%{_datadir}/%{name}/%{name}-examples-%{version}.jar
-
-%{gcj_compile}
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%if %{gcj_support}
-%post
-%{update_gcjdb}
-
-%postun
-%{clean_gcjdb}
-%endif
-
 %files
-%defattr(0644,root,root,0755)
+%defattr(-,root,root,-)
 %{_javadir}/*
-%{gcj_files}
 
 %files javadoc
-%defattr(0644,root,root,0755)
+%defattr(-,root,root,-)
 %{_javadocdir}/%{name}
 
 %files doc
-%defattr(0644,root,root,0755)
+%defattr(-,root,root,-)
 %doc doc/*
 
-%files demo
-%defattr(0644,root,root,0755)
-%{_datadir}/%{name}
