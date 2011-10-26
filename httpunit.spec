@@ -30,7 +30,7 @@
 
 Name:           httpunit
 Version:        1.7
-Release:        3
+Release:        4
 Summary:        Automated web site testing toolkit
 License:        MIT
 Source0:        http://download.sourceforge.net/httpunit/httpunit-%{version}.zip
