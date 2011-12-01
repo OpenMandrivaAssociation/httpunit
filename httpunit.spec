@@ -112,18 +112,18 @@ ant -Dbuild.compiler=modern -Dbuild.sysclasspath=last \
   jar javadocs test servlettest 
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-mkdir -p $RPM_BUILD_ROOT%{_javadir}
-cp -p lib/%{name}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
+mkdir -p %{buildroot}%{_javadir}
+cp -p lib/%{name}.jar %{buildroot}%{_javadir}/%{name}-%{version}.jar
 
 # Jar versioning
-(cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-%{version}.jar; \
+(cd %{buildroot}%{_javadir} && for jar in *-%{version}.jar; \
  do ln -sf ${jar} `echo $jar| sed "s|-%{version}||g"`; done)
 
 # Javadoc
-mkdir -p $RPM_BUILD_ROOT%{_javadocdir}/%{name}
-cp -pr doc/api/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}
+mkdir -p %{buildroot}%{_javadocdir}/%{name}
+cp -pr doc/api/* %{buildroot}%{_javadocdir}/%{name}
 
 # Avoid having api in doc
 rm -rf doc/api
@@ -134,7 +134,7 @@ ln -sf %{_javadocdir}/%{name}-%{version} api
 popd
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
