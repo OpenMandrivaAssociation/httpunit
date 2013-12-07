@@ -33,7 +33,7 @@
 Name:		httpunit
 Epoch:		0
 Version:	1.7
-Release:	0.0.10
+Release:	0.0.11
 Summary:	Automated web site testing toolkit
 License:	MIT
 Group:		Development/Java
