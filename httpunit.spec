@@ -1,4 +1,4 @@
-%{?_javapackages_macros:%_javapackages_macros}
+maven-project-info-reports-plugin.-ba.20140108-211928.06329.localhost.buildlog%{?_javapackages_macros:%_javapackages_macros}
 # Copyright (c) 2000-2005, JPackage Project
 # All rights reserved.
 #
@@ -116,7 +116,7 @@ ln -s \
 %if 0%{?fedora}
 mv %{SOURCE1} pom.xml
 %else
-mv %{SOURCE1} pom.xml
+cp -p %{SOURCE1} pom.xml
 %endif
 
 
