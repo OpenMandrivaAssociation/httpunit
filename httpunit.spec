@@ -1,4 +1,4 @@
-maven-project-info-reports-plugin.-ba.20140108-211928.06329.localhost.buildlog%{?_javapackages_macros:%_javapackages_macros}
+%{?_javapackages_macros:%_javapackages_macros}
 # Copyright (c) 2000-2005, JPackage Project
 # All rights reserved.
 #
