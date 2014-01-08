@@ -113,7 +113,11 @@ ln -s \
   %{_javadir}/xerces-j2.jar \
   jars
 
+%if 0%{?fedora}
 mv %{SOURCE1} pom.xml
+%else
+mv %{SOURCE1} pom.xml
+%endif
 
 
 %build
