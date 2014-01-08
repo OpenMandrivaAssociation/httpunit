@@ -1,4 +1,4 @@
-%{?_javapackages_macros:%_javapackages_macros}
+maven-project-info-reports-plugin.-ba.20140108-211928.06329.localhost.buildlog%{?_javapackages_macros:%_javapackages_macros}
 # Copyright (c) 2000-2005, JPackage Project
 # All rights reserved.
 #
@@ -90,7 +90,7 @@ Documentation for %{name}
 # to create the test and examples jar
 #%%patch0 -p0
 # patch to work with rhino 1.5
-%patch1 -b .sav
+%patch1
 # add META-INF
 %patch2
 %patch3 -p1
