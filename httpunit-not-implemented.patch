@@ -1,0 +1,422 @@
+diff --git a/src/com/meterware/servletunit/ServletUnitHttpRequest.java b/src/com/meterware/servletunit/ServletUnitHttpRequest.java
+index c2c331e..2d198b8 100644
+--- a/src/com/meterware/servletunit/ServletUnitHttpRequest.java
++++ b/src/com/meterware/servletunit/ServletUnitHttpRequest.java
+@@ -33,10 +33,17 @@ import java.util.*;
+ 
+ import javax.servlet.http.HttpServletRequest;
+ import javax.servlet.http.Cookie;
++import javax.servlet.http.HttpServletResponse;
+ import javax.servlet.http.HttpSession;
++import javax.servlet.http.Part;
++import javax.servlet.AsyncContext;
++import javax.servlet.DispatcherType;
++import javax.servlet.ServletContext;
+ import javax.servlet.ServletInputStream;
+ import javax.servlet.RequestDispatcher;
+ import javax.servlet.ServletException;
++import javax.servlet.ServletRequest;
++import javax.servlet.ServletResponse;
+ 
+ 
+ /**
+@@ -886,6 +893,71 @@ class ServletUnitHttpRequest implements HttpServletRequest {
+         }
+ 
+     }
++
++
++	public AsyncContext getAsyncContext() {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public DispatcherType getDispatcherType() {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public ServletContext getServletContext() {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public boolean isAsyncStarted() {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public boolean isAsyncSupported() {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public AsyncContext startAsync() {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public AsyncContext startAsync(ServletRequest arg0, ServletResponse arg1) {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public boolean authenticate(HttpServletResponse arg0) throws IOException,
++			ServletException {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public Part getPart(String arg0) throws IOException, IllegalStateException,
++			ServletException {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public Collection<Part> getParts() throws IOException,
++			IllegalStateException, ServletException {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public void login(String arg0, String arg1) throws ServletException {
++		throw new UnsupportedOperationException();
++		
++	}
++
++
++	public void logout() throws ServletException {
++		throw new UnsupportedOperationException();
++		
++	}
+ }
+ 
+ 
+diff --git a/src/com/meterware/servletunit/ServletUnitHttpResponse.java b/src/com/meterware/servletunit/ServletUnitHttpResponse.java
+index bcf7236..4585e73 100644
+--- a/src/com/meterware/servletunit/ServletUnitHttpResponse.java
++++ b/src/com/meterware/servletunit/ServletUnitHttpResponse.java
+@@ -463,7 +463,7 @@ class ServletUnitHttpResponse implements HttpServletResponse {
+     /**
+      * Returns the status of this response.
+      **/
+-    int getStatus() {
++    public int getStatus() {
+         return _status;
+     }
+ 
+@@ -602,6 +602,22 @@ class ServletUnitHttpResponse implements HttpServletResponse {
+         ENCODING_MAP.put("Big5",      "zh_TW zh_HK " );
+     }
+ 
++
++
++	public String getHeader(String arg0) {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public Collection<String> getHeaderNames() {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public Collection<String> getHeaders(String arg0) {
++		throw new UnsupportedOperationException();
++	}
++
+ }
+ 
+ 
+diff --git a/src/com/meterware/servletunit/ServletUnitServletContext.java b/src/com/meterware/servletunit/ServletUnitServletContext.java
+index 101bfb4..e20aaf6 100644
+--- a/src/com/meterware/servletunit/ServletUnitServletContext.java
++++ b/src/com/meterware/servletunit/ServletUnitServletContext.java
+@@ -28,12 +28,22 @@ import java.net.MalformedURLException;
+ import java.net.URL;
+ import java.net.URLConnection;
+ import java.util.Enumeration;
++import java.util.EventListener;
+ import java.util.Hashtable;
++import java.util.Map;
+ import java.util.Set;
+ import java.util.Vector;
+ 
++import javax.servlet.Filter;
++import javax.servlet.FilterRegistration;
++import javax.servlet.FilterRegistration.Dynamic;
++import javax.servlet.Servlet;
+ import javax.servlet.ServletContext;
+ import javax.servlet.ServletException;
++import javax.servlet.ServletRegistration;
++import javax.servlet.SessionCookieConfig;
++import javax.servlet.SessionTrackingMode;
++import javax.servlet.descriptor.JspConfigDescriptor;
+ 
+ 
+ 
+@@ -116,7 +126,7 @@ public class ServletUnitServletContext implements ServletContext {
+         try {
+             File resourceFile = _application.getResourceFile( path );
+             // PATCH proposal [ 1592532 ] Invalid ServletUnitServletContext#getResource(String path)
+-            // by Timo Westkämper
++            // by Timo Westkï¿½mper
+             // return !resourceFile.exists() ? null : 	resourceFile.toURL();            
+             return resourceFile == null ? null : resourceFile.toURL();
+         } catch (MalformedURLException e) {
+@@ -400,4 +410,146 @@ public class ServletUnitServletContext implements ServletContext {
+     public void setLogStream(PrintStream logStream) {
+         this._logStream = logStream;
+     }
++
++
++	public Dynamic addFilter(String arg0, String arg1) {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public Dynamic addFilter(String arg0, Filter arg1) {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public Dynamic addFilter(String arg0, Class<? extends Filter> arg1) {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public void addListener(Class<? extends EventListener> arg0) {
++		throw new UnsupportedOperationException();
++		
++	}
++
++
++	public void addListener(String arg0) {
++		throw new UnsupportedOperationException();
++		
++	}
++
++
++	public <T extends EventListener> void addListener(T arg0) {
++		throw new UnsupportedOperationException();
++		
++	}
++
++
++	public javax.servlet.ServletRegistration.Dynamic addServlet(String arg0,
++			String arg1) {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public javax.servlet.ServletRegistration.Dynamic addServlet(String arg0,
++			Servlet arg1) {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public javax.servlet.ServletRegistration.Dynamic addServlet(String arg0,
++			Class<? extends Servlet> arg1) {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public <T extends Filter> T createFilter(Class<T> arg0)
++			throws ServletException {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public <T extends EventListener> T createListener(Class<T> arg0)
++			throws ServletException {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public <T extends Servlet> T createServlet(Class<T> arg0)
++			throws ServletException {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public void declareRoles(String... arg0) {
++		throw new UnsupportedOperationException();
++		
++	}
++
++
++	public ClassLoader getClassLoader() {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public Set<SessionTrackingMode> getDefaultSessionTrackingModes() {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public int getEffectiveMajorVersion() {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public int getEffectiveMinorVersion() {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public Set<SessionTrackingMode> getEffectiveSessionTrackingModes() {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public FilterRegistration getFilterRegistration(String arg0) {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public Map<String, ? extends FilterRegistration> getFilterRegistrations() {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public JspConfigDescriptor getJspConfigDescriptor() {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public ServletRegistration getServletRegistration(String arg0) {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public Map<String, ? extends ServletRegistration> getServletRegistrations() {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public SessionCookieConfig getSessionCookieConfig() {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public boolean setInitParameter(String arg0, String arg1) {
++		throw new UnsupportedOperationException();
++	}
++
++
++	public void setSessionTrackingModes(Set<SessionTrackingMode> arg0)
++			throws IllegalStateException, IllegalArgumentException {
++		throw new UnsupportedOperationException();
++		
++	}
+ }
+diff --git a/test/com/meterware/servletunit/RequestContextTest.java b/test/com/meterware/servletunit/RequestContextTest.java
+index ec0f4d4..9d8340a 100644
+--- a/test/com/meterware/servletunit/RequestContextTest.java
++++ b/test/com/meterware/servletunit/RequestContextTest.java
+@@ -22,6 +22,7 @@ package com.meterware.servletunit;
+ import com.meterware.httpunit.HttpUnitTest;
+ 
+ import java.net.URL;
++import java.util.Collection;
+ import java.util.Enumeration;
+ import java.util.Map;
+ import java.util.Locale;
+@@ -32,9 +33,17 @@ import java.io.BufferedReader;
+ 
+ import javax.servlet.http.HttpServletRequest;
+ import javax.servlet.http.Cookie;
++import javax.servlet.http.HttpServletResponse;
+ import javax.servlet.http.HttpSession;
++import javax.servlet.http.Part;
++import javax.servlet.AsyncContext;
++import javax.servlet.DispatcherType;
++import javax.servlet.ServletContext;
++import javax.servlet.ServletException;
+ import javax.servlet.ServletInputStream;
+ import javax.servlet.RequestDispatcher;
++import javax.servlet.ServletRequest;
++import javax.servlet.ServletResponse;
+ 
+ import junit.framework.TestSuite;
+ 
+@@ -384,6 +393,78 @@ public class RequestContextTest extends HttpUnitTest {
+         public int getLocalPort() {
+             return 0;  //To change body of implemented methods use File | Settings | File Templates.
+         }
++
++
++		public AsyncContext getAsyncContext() {
++			throw new UnsupportedOperationException();
++			
++		}
++
++
++		public DispatcherType getDispatcherType() {
++			throw new UnsupportedOperationException();
++			
++		}
++
++
++		public ServletContext getServletContext() {
++			throw new UnsupportedOperationException();
++			
++		}
++
++
++		public boolean isAsyncStarted() {
++			throw new UnsupportedOperationException();
++		}
++
++
++		public boolean isAsyncSupported() {
++			throw new UnsupportedOperationException();
++		}
++
++
++		public AsyncContext startAsync() {
++			throw new UnsupportedOperationException();
++			
++		}
++
++
++		public AsyncContext startAsync(ServletRequest arg0, ServletResponse arg1) {
++			throw new UnsupportedOperationException();
++			
++		}
++
++
++		public boolean authenticate(HttpServletResponse arg0)
++				throws IOException, ServletException {
++			throw new UnsupportedOperationException();
++		}
++
++
++		public Part getPart(String arg0) throws IOException,
++				IllegalStateException, ServletException {
++			throw new UnsupportedOperationException();
++			
++		}
++
++
++		public Collection<Part> getParts() throws IOException,
++				IllegalStateException, ServletException {
++			throw new UnsupportedOperationException();
++			
++		}
++
++
++		public void login(String arg0, String arg1) throws ServletException {
++			throw new UnsupportedOperationException();
++			
++		}
++
++
++		public void logout() throws ServletException {
++			throw new UnsupportedOperationException();
++			
++		}
+     }
+ 
+ 
