@@ -31,8 +31,9 @@
 
 Name:           httpunit
 Version:        1.7
-Release:        12.0%{?dist}
+Release:        12.1
 Epoch:          0
+Group:		Development/Java
 Summary:        Automated web site testing toolkit
 License:        MIT
 Source0:        http://download.sourceforge.net/httpunit/httpunit-%{version}.zip
@@ -148,10 +149,7 @@ pushd doc
 ln -sf %{_javadocdir}/%{name} api
 popd
 
-%files
-%{_javadir}/*
-%{_mavenpomdir}/JPP-%{name}.pom
-%{_mavendepmapfragdir}/%{name}
+%files -f .mfiles
 
 %files javadoc
 %{_javadocdir}/%{name}
