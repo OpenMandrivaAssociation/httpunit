@@ -51,7 +51,7 @@ BuildRequires:  junit >= 0:3.8
 BuildRequires:  tomcat-servlet-3.0-api
 BuildRequires:  javamail >= 0:1.3
 BuildRequires:  rhino
-BuildRequires:  %{__unzip}
+BuildRequires:  unzip
 BuildRequires:  java-devel >= 1:1.6.0
 Requires:       junit >= 0:3.8
 Requires:       jpackage-utils
