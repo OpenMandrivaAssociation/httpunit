@@ -31,7 +31,7 @@
 
 Name:           httpunit
 Version:        1.7
-Release:        12.1
+Release:        12.2
 Epoch:          0
 Group:		Development/Java
 Summary:        Automated web site testing toolkit
