@@ -42,7 +42,7 @@ Patch1:         %{name}-JavaScript-NotAFunctionException.patch
 Patch2:         %{name}-servlettest.patch
 Patch3:         %{name}-not-implemented.patch
 Patch4:         junit4.patch
-URL:            http://httpunit.sourceforge.net/
+URL:            https://httpunit.sourceforge.net/
 BuildRequires:  jpackage-utils >= 0:1.6
 BuildRequires:  ant >= 0:1.6
 BuildRequires:  nekohtml
